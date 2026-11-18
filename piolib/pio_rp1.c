@@ -249,17 +249,8 @@ static int rp1_ioctl(PIO pio, int request, void *args)
     RP1_PIO rp = (RP1_PIO)pio;
     int ret = ioctl(rp->fd, request, args);
 
-    if (ret < 0) {
+    if (ret < 0)
         ret = -errno;
-        switch (ret) {
-        case -EREMOTEIO:
-        case -ETIMEDOUT:
-            pio_panic("Error communicating with RP1");
-            break;
-        default:
-            break;
-        }
-    }
     return ret;
 }
 
